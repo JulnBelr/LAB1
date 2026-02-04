@@ -1,0 +1,36 @@
+// ----- PIN ARRAYS -----
+const int buttons[] = {2, 3, 6, 7};     // A, B, C, D
+const int leds[]    = {12, 13, 10, 11}; // A, B, C, D
+const int LIGHT = 8;
+
+const int NUM_BUTTONS = 4;
+
+void setup() {
+  Serial.begin(4800);
+
+  for (int i = 0; i < NUM_BUTTONS; i++) {
+    pinMode(buttons[i], INPUT);
+    pinMode(leds[i], OUTPUT);
+  }
+
+  pinMode(LIGHT, INPUT);
+}
+
+void loop() {
+  for (int i = 0; i < NUM_BUTTONS; i++) {
+    int state = digitalRead(buttons[i]);
+    digitalWrite(leds[i], state);
+
+    // Print button letter (A, B, C, D)
+    Serial.print(char('A' + i));
+    Serial.print(":");
+    Serial.print(state);
+    Serial.print(" ");
+  }
+
+  int lightState = digitalRead(LIGHT);
+  Serial.print("Light:");
+  Serial.println(lightState);
+
+  delay(1);
+}
